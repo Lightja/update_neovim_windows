@@ -45,7 +45,7 @@ cls
 @echo      done! - Recommended optional steps:
 @echo                - add C:\Tools\neovim\build\bin to PATH if its not already.
 @echo                - delete %localappdata%\nvim-data - this will delete all plugin data, but will ensure fresh plugin installs.
-@echo                - if you want LLDB-DAP for DAP debugging: scoop install versions/mingw-winlibs-llvm-ucrt and add %userprofile%\scoop\apps\mingw-winlibs-llvm-ucrt\14.2.0-19.1.1-12.0.0-r2\bin to LLDB config
+@echo                - if you want LLDB-DAP for DAP debugging: add %userprofile%\scoop\apps\mingw-winlibs-llvm-ucrt\14.2.0-19.1.1-12.0.0-r2\bin to LLDB config
 @echo.
 pause
 refreshenv
