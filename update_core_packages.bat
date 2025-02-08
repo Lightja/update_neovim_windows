@@ -5,7 +5,6 @@ scoop update
 scoop update *
 scoop cleanup *
 scoop status
-choco uninstall mingw
 choco install msys2
 choco install mingw
 choco install cmake.install
