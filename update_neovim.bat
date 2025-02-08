@@ -33,7 +33,7 @@ setx VIMRUNTIME "C:\Tools\neovim\runtime" /M
 @echo.
 @echo.
 cls
-@echo     Done! Ignore warnings and verify VIMRUNTIME was set in environment variables, then run nvim.exe to confirm it updated.
+@echo     Done!
 @echo.
 @echo   OPTIONAL: Press enter 3 times to create symbolic link "vim.exe" for "nvim.exe" (must be in an elevated console, skip this step if vim is installed on this machine.)
 pause
