@@ -44,8 +44,12 @@ mklink vim.exe nvim.exe
 cls
 @echo      done! - Recommended optional steps:
 @echo                - add C:\Tools\neovim\build\bin to PATH if its not already.
-@echo                - delete %localappdata%\nvim-data - this will delete all plugin data, but will ensure fresh plugin installs.
-@echo                - if you want LLDB-DAP for DAP debugging: add %userprofile%\scoop\apps\mingw-winlibs-llvm-ucrt\14.2.0-19.1.1-12.0.0-r2\bin to LLDB config
+@echo                - delete %localappdata%\nvim-data - Deletes plugin data, but ensures fresh install.
+@echo                - if you want LLDB-DAP for DAP debugging: add %userprofile%\scoop\apps\mingw-winlibs-llvm-ucrt\14.2.0-19.1.1-12.0.0-r2\bin\lldb-dap.exe to LLDB config
+@echo                - if using lazy.nvim: - verify treesitter in lazy config: { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate"}
+@echo                                      - post lazy config: 1. make sure you are NOT calling  require 'nvim-treesitter.configs'.setup - TSUpdate will handle it.
+@echo                                                          2. require 'nvim-treesitter.configs'.compilers = { "zig" } Zig is reliable, but try gcc/clang if needed.
+@echo                                                          3. require 'nvim-treesitter.configs'.prefer_git = false
 @echo.
 pause
 refreshenv
