@@ -29,19 +29,10 @@ cmake --build .deps --config Release
 cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 setx VIMRUNTIME "C:\Tools\neovim\runtime" /M
-@echo.
-@echo.
-@echo.
 cls
-@echo     Done!
 @echo.
-@echo   OPTIONAL: Press enter 3 times to create symbolic link "vim.exe" for "nvim.exe" (must be in an elevated console, skip this step if vim is installed on this machine.)
-pause
-pause
-pause
-cd c:\tools\neovim\build\bin
-mklink vim.exe nvim.exe
-cls
+@echo.
+@echo.
 @echo      done! - Recommended optional steps:
 @echo                - add C:\Tools\neovim\build\bin to PATH if its not already.
 @echo                - delete %localappdata%\nvim-data - Deletes plugin data, but ensures fresh install.
@@ -51,8 +42,13 @@ cls
 @echo                                                          2. require 'nvim-treesitter.configs'.compilers = { "zig" }-- Zig is reliable, but try gcc/clang if needed.
 @echo                - if using Mason: manually install clangd, lua-language-server, gopls, rust-analyzer, and others as needed. configure lspconfig to find them manually.
 @echo.
+@echo.
+@echo.
+@echo   OPTIONAL: Press enter 3 times to create symbolic link "vim.exe" for "nvim.exe" (must be in an elevated console, skip this step if vim is installed on this machine.)
 pause
+pause
+pause
+cd c:\tools\neovim\build\bin
+mklink vim.exe nvim.exe
 refreshenv
 vim .
-
-:MasonInstall --target=linux_x64_gnu lua-language-server
