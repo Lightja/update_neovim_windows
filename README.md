@@ -1,1 +1,1 @@
-just run both batch files to update neovim on windows.
+see update_neovim.bat
