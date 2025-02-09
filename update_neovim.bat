@@ -48,10 +48,11 @@ cls
 @echo                - if you want LLDB-DAP for DAP debugging: add %userprofile%\scoop\apps\mingw-winlibs-llvm-ucrt\14.2.0-19.1.1-12.0.0-r2\bin\lldb-dap.exe to LLDB config
 @echo                - if using lazy.nvim: - verify treesitter in lazy config: { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate"}
 @echo                                      - post lazy config: 1. make sure you are NOT calling  require 'nvim-treesitter.configs'.setup - TSUpdate will handle it.
-@echo                                                          2. require 'nvim-treesitter.configs'.compilers = { "zig" } Zig is reliable, but try gcc/clang if needed.
-@echo                                                          3. require 'nvim-treesitter.configs'.prefer_git = false
+@echo                                                          2. require 'nvim-treesitter.configs'.compilers = { "zig" }-- Zig is reliable, but try gcc/clang if needed.
+@echo                - if using Mason: manually install clangd, lua-language-server, gopls, rust-analyzer, and others as needed. configure lspconfig to find them manually.
 @echo.
 pause
 refreshenv
 vim .
 
+:MasonInstall --target=linux_x64_gnu lua-language-server
