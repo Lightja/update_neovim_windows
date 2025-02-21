@@ -11,25 +11,35 @@
 @echo 2. run install_choco.bat.
 @echo 3. run update_core_packages.bat (helps to ensure a consistent and updated environment)
 @echo 4. verify choco bin folder with installed packages is near the TOP of PATH to ensure latest versions are used.
-@echo 5. open 64-bit VS CMD console (vcvars64.bat) as administrator. example location: C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat
-@echo 6. run this file from the 64-bit VS CMD Console
+@echo 5. make sure this is running from an elevated command prompt
 @echo.    
 @echo        (note: deletes existing install, should not impact customized neovim profile if it's in the default location: %localappdata%.)
 @echo.    
 @echo    Confirm the above requirements before continuing!!!
 @echo.    
 pause
+setlocal enabledelayedexpansion
+set "originalPath=!PATH!"
+call "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Auxiliary/Build/vcvars64.bat"
+set CLANGCL="C:/Program Files/LLVM/bin/clang-cl.exe"
+set CFLAGSCLANGCL=/O2 /DNDEBUG /MT
 rd /s /q "C:\Tools\neovim"
 mkdir "C:\Tools"
 cd "C:\Tools"
 git clone "https://github.com/neovim/neovim"
 cd neovim
-cmake -S cmake.deps -B .deps -G Ninja -D CMAKE_BUILD_TYPE=Release
+@echo on
+cmake -S cmake.deps -B .deps -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+REM cmake -S cmake.deps -B .deps -G "Ninja" -DCMAKE_CXX_COMPILER=%CLANGCL% -DCMAKE_C_COMPILER=%CLANGCL% -DCMAKE_C_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_CXX_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_BUILD_TYPE=Release 
 cmake --build .deps --config Release
-cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=Release
-cmake --build build --config Release
+REM cmake -C .deps
+REM cmake -B build -G "Ninja" -DCMAKE_CXX_COMPILER=%CLANGCL% -DCMAKE_C_COMPILER=%CLANGCL% -DCMAKE_C_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_CXX_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_BUILD_TYPE=Release
+cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+cmake --build build
 setx VIMRUNTIME "C:\Tools\neovim\runtime" /M
-cls
+set "PATH=!originalPath!"
+REM cls
+pause
 @echo.
 @echo.
 @echo.
