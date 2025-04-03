@@ -15,26 +15,21 @@
 @echo.    
 @echo        (note: deletes existing install, should not impact customized neovim profile if it's in the default location: %localappdata%.)
 @echo.    
-@echo    Confirm the above requirements before continuing!!!
+@echo    Confirm the above requirements before continuing!!! (uses MSVC to compile)
 @echo.    
 pause
 setlocal enabledelayedexpansion
 set "originalPath=!PATH!"
 call "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Auxiliary/Build/vcvars64.bat"
-set CLANGCL="C:/Program Files/LLVM/bin/clang-cl.exe"
-set CFLAGSCLANGCL=/O2 /DNDEBUG /MT
 rd /s /q "C:\Tools\neovim"
 mkdir "C:\Tools"
 cd "C:\Tools"
 git clone "https://github.com/neovim/neovim"
 cd neovim
 @echo on
-cmake -S cmake.deps -B .deps -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
-REM cmake -S cmake.deps -B .deps -G "Ninja" -DCMAKE_CXX_COMPILER=%CLANGCL% -DCMAKE_C_COMPILER=%CLANGCL% -DCMAKE_C_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_CXX_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_BUILD_TYPE=Release 
+cmake -S cmake.deps -B .deps -G Ninja -D CMAKE_BUILD_TYPE=Release
 cmake --build .deps --config Release
-REM cmake -C .deps
-REM cmake -B build -G "Ninja" -DCMAKE_CXX_COMPILER=%CLANGCL% -DCMAKE_C_COMPILER=%CLANGCL% -DCMAKE_C_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_CXX_FLAGS_RELEASE="%CFLAGSCLANGCL%" -DCMAKE_BUILD_TYPE=Release
-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=Release
 cmake --build build
 setx VIMRUNTIME "C:\Tools\neovim\runtime" /M
 set "PATH=!originalPath!"
